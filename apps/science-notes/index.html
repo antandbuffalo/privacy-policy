@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Science Revision Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Layout: one exercise-book column; chapters as tabs of the book, answers in ink, corrections in red pen */
+:root {
+  --paper: #fbfcfe;
+  --ink: #1d2a44;
+  --muted: #5a6680;
+  --rule: #d9e1ee;
+  --accent: #2d5fb8;
+  --accent-soft: #e8eefa;
+  --red: #c4302b;
+  --red-soft: #fdeceb;
+  --display: "Baloo 2", "Trebuchet MS", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #141a26; --ink: #e6ebf5; --muted: #9aa6bd; --rule: #2a3447;
+    --accent: #8fb0ef; --accent-soft: #1d2a42; --red: #ff8a80; --red-soft: #3a1f22;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #141a26; --ink: #e6ebf5; --muted: #9aa6bd; --rule: #2a3447;
+  --accent: #8fb0ef; --accent-soft: #1d2a42; --red: #ff8a80; --red-soft: #3a1f22;
+  color-scheme: dark;
+}
+body { background: var(--paper); color: var(--ink); font: 17px/1.6 var(--body); }
+.wrap { max-width: 46rem; margin: 0 auto; padding-inline: 20px; padding-block: 32px 64px; }
+header { border-bottom: 2px solid var(--accent); padding-bottom: 14px; margin-bottom: 8px; }
+h1 { font: 700 2.3rem/1.1 var(--display); margin: 0; color: var(--accent); text-wrap: balance; }
+.sub { color: var(--muted); margin: 6px 0 0; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: .9rem; color: var(--muted); margin-top: 10px; }
+.legend b { color: var(--red); }
+nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 8px; }
+nav a { font: 600 .95rem var(--display); color: var(--accent); background: var(--accent-soft); padding: 4px 12px; border-radius: 999px; text-decoration: none; }
+nav a:focus-visible, nav a:hover { outline: 2px solid var(--accent); outline-offset: 2px; }
+section.chapter { margin-top: 40px; }
+h2 { font: 700 1.75rem/1.2 var(--display); margin: 0 0 4px; text-wrap: balance; }
+h2 small { display: block; font: 600 .8rem var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+h3 { font: 700 1.2rem var(--display); color: var(--accent); margin: 28px 0 10px; padding-bottom: 4px; border-bottom: 1px dashed var(--rule); }
+h3 .roman { display: inline-block; min-width: 2.2em; color: var(--muted); }
+ol, ul { margin: 0; padding-left: 1.6em; }
+li { margin: 4px 0; }
+.words { columns: 2 12rem; column-gap: 2rem; }
+.blank { font-weight: 700; color: var(--accent); border-bottom: 2px solid currentColor; padding: 0 2px; }
+.qa { display: grid; gap: 18px; }
+.q { font-weight: 700; margin: 0 0 4px; }
+.q .n { color: var(--muted); margin-right: 6px; font-variant-numeric: tabular-nums; }
+.a { margin: 0; }
+.a ul, .a ol { margin-top: 4px; }
+.fix { margin: 8px 0 0; padding: 8px 12px; border-left: 3px solid var(--red); background: var(--red-soft); color: var(--red); font-size: .93rem; }
+.fix::before { content: "Correction: "; font-weight: 700; }
+.table-box { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; min-width: 18rem; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--rule); }
+th { font: 600 .8rem var(--body); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.chain { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-weight: 700; }
+.chain span { background: var(--accent-soft); color: var(--ink); padding: 3px 12px; border-radius: 6px; }
+.chain i { font-style: normal; color: var(--accent); }
+.particles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 8px; }
+.particles figure { margin: 0; text-align: center; }
+.particles svg { width: 100%; max-width: 160px; height: auto; border: 2px solid var(--ink); border-top: none; border-radius: 0 0 8px 8px; }
+.particles circle { fill: var(--accent); }
+.particles figcaption { font-size: .9rem; color: var(--muted); }
+.particles figcaption b { display: block; color: var(--ink); font-family: var(--display); font-size: 1.05rem; }
+@media (max-width: 420px) { .particles { grid-template-columns: 1fr; } .particles svg { max-width: 200px; } }
+@media print {
+  :root { --paper: #fff; --ink: #000; --muted: #444; --accent: #1a4a9e; --accent-soft: #eef2fa; }
+  body { font-size: 12pt; }
+  nav { display: none; }
+  section.chapter { break-before: page; margin-top: 0; }
+  section.chapter:first-of-type { break-before: auto; }
+  .qa > div, table, .particles, .fix { break-inside: avoid; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <h1>Science Revision Notes</h1>
+  <p class="sub">Clean copy of the class notebook: Living Things, Energy, and two revision sets.</p>
+  <div class="legend"><span>Blue underlined words = the answer to fill in</span><span><b>Red boxes</b> = the notebook answer was wrong, learn this one instead</span></div>
+</header>
+
+<nav aria-label="Chapters">
+  <a href="#living">Living Things</a>
+  <a href="#energy">Energy</a>
+  <a href="#midterm">Mid-term Revision</a>
+  <a href="#revision2">Revision 2</a>
+</nav>
+
+<!-- ───────── Lesson 1 ───────── -->
+<section class="chapter" id="living">
+  <h2><small>Lesson 1</small>Living Things</h2>
+
+  <h3><span class="roman">I.</span>Hard words</h3>
+  <ol class="words">
+    <li>Skeleton</li><li>Muscles</li><li>Organs</li><li>Contracts</li><li>Locust</li>
+    <li>Dolphin</li><li>Lizard</li><li>Diseases</li><li>Germs</li><li>Medicines</li>
+  </ol>
+
+  <h3><span class="roman">II.</span>Fill in the blanks</h3>
+  <ol>
+    <li>Animals without bones are called <span class="blank">invertebrates</span>.</li>
+    <li>We use <span class="blank">muscles</span> to move in different ways.</li>
+    <li>We take <span class="blank">medicines</span> to help make us better when we have an illness.</li>
+    <li>Fishes are <span class="blank">vertebrates</span> that live in water.</li>
+    <li>The bones of our <span class="blank">skeleton</span> are strong.</li>
+  </ol>
+
+  <h3><span class="roman">III.</span>Match the following</h3>
+  <div class="table-box"><table>
+    <tr><th>Animal / thing</th><th>Matches with</th></tr>
+    <tr><td>Eagle</td><td>has feathers</td></tr>
+    <tr><td>Fish</td><td>breathes with gills</td></tr>
+    <tr><td>Frog</td><td>amphibian</td></tr>
+    <tr><td>Earthworm</td><td>invertebrate</td></tr>
+    <tr><td>Medicines</td><td>fight diseases</td></tr>
+  </table></div>
+
+  <h3><span class="roman">IV.</span>Answer the following</h3>
+  <div class="qa">
+    <div><p class="q"><span class="n">1</span>What is the skeleton made of?</p>
+      <p class="a">The skeleton is made of bones. It is a strong frame that supports our body from inside.</p></div>
+    <div><p class="q"><span class="n">2</span>How does the skeleton protect the brain?</p>
+      <p class="a">The skull protects the brain. It also gives our face its shape.</p></div>
+    <div><p class="q"><span class="n">3</span>Which organs does the ribcage protect?</p>
+      <p class="a">The ribcage protects the organs in the chest, such as the heart and lungs, from damage.</p></div>
+    <div><p class="q"><span class="n">4</span>Write the functions of the skeleton.</p>
+      <div class="a">Our skeleton has four main functions:
+        <ol><li>It protects the main organs of our body.</li>
+        <li>It makes our body firm and gives it its shape.</li>
+        <li>It allows us to move, walk and run.</li>
+        <li>It grows as we grow.</li></ol></div></div>
+    <div><p class="q"><span class="n">5</span>Why do we need medicines?</p>
+      <p class="a">We take medicines to make us better when we are ill, and to stop us from getting ill.</p></div>
+    <div><p class="q"><span class="n">6</span>What is the difference between vertebrates and invertebrates?</p>
+      <ul class="a"><li><b>Vertebrates</b>: animals with a skeleton (backbone) inside their bodies. Example: lion, tiger.</li>
+      <li><b>Invertebrates</b>: animals without a skeleton inside their bodies. Example: earthworm, jellyfish.</li></ul></div>
+    <div><p class="q"><span class="n">7</span>Draw pictures of a vertebrate and an invertebrate.</p>
+      <p class="a">Vertebrate: a fish (it has bones). Invertebrate: a worm.</p></div>
+  </div>
+</section>
+
+<!-- ───────── Chapter 2 ───────── -->
+<section class="chapter" id="energy">
+  <h2><small>Chapter 2</small>Energy</h2>
+
+  <h3><span class="roman">I.</span>Hard words</h3>
+  <ol class="words">
+    <li>Breathe</li><li>Electrical energy</li><li>Environment</li><li>Consumer</li><li>Producer</li>
+    <li>Herbivores</li><li>Carnivores</li><li>Omnivores</li><li>Predators</li><li>Prey</li>
+  </ol>
+
+  <h3><span class="roman">II.</span>Fill in the blanks</h3>
+  <ol>
+    <li>The animals that carnivores kill and eat are called <span class="blank">prey</span>.</li>
+    <li>A <span class="blank">food chain</span> shows the order in which animals eat plants and other animals to get energy.</li>
+    <li>We know that <span class="blank">everything</span> has energy.</li>
+    <li><span class="blank">Energy</span> is everywhere around us.</li>
+    <li>Sometimes carnivores are called <span class="blank">predators</span>.</li>
+  </ol>
+
+  <h3><span class="roman">III.</span>Match the following</h3>
+  <div class="table-box"><table>
+    <tr><th>Thing</th><th>Energy</th></tr>
+    <tr><td>Playing</td><td>movement energy</td></tr>
+    <tr><td>Hot kettle</td><td>heat and sound energy</td></tr>
+    <tr><td>Sun</td><td>heat and light energy</td></tr>
+    <tr><td>Drum</td><td>movement and sound energy</td></tr>
+    <tr><td>Bird eating a worm</td><td>food energy</td></tr>
+  </table></div>
+
+  <h3><span class="roman">IV.</span>Short answers</h3>
+  <div class="qa">
+    <div><p class="q"><span class="n">1</span>If energy is not used up or destroyed, where does it go?</p>
+      <p class="a">The energy changes form, or it moves into the surrounding environment.</p></div>
+    <div><p class="q"><span class="n">2</span>What are herbivores?</p>
+      <p class="a">Animals that eat only plants are called herbivores. Example: deer, zebra.</p></div>
+    <div><p class="q"><span class="n">3</span>What are carnivores?</p>
+      <p class="a">Animals that eat the flesh of other animals are called carnivores. Example: lion, tiger.</p></div>
+    <div><p class="q"><span class="n">4</span>What are omnivores?</p>
+      <p class="a">Animals that eat both plants and animals are called omnivores. Example: dog, bear.</p></div>
+    <div><p class="q"><span class="n">5</span>Why are plants called producers?</p>
+      <p class="a">Plants are called producers because they make (produce) their own food.</p></div>
+    <div><p class="q"><span class="n">6</span>Why are animals called consumers?</p>
+      <p class="a">Animals are called consumers because they eat (consume) plants or other animals.</p></div>
+  </div>
+
+  <h3><span class="roman">V.</span>Answer the following</h3>
+  <div class="qa">
+    <div><p class="q"><span class="n">1</span>Why does it sometimes seem that energy is used up? Give an example.</p>
+      <p class="a">It sometimes seems that energy is used up because we cannot see any sign that an object still has energy.</p>
+      <p class="fix">The example was missing. Example: a cup of hot tea cools down. Its heat energy has not disappeared; it has moved into the air around it.</p></div>
+    <div><p class="q"><span class="n">2</span>Why do our bodies need energy?</p>
+      <p class="a">Our body needs energy to carry out activities such as running, playing and growing.</p></div>
+    <div><p class="q"><span class="n">3</span>Where do living things get their energy from?</p>
+      <p class="a">Living things get their energy from food. Plants use energy from the Sun to make their food.</p></div>
+    <div><p class="q"><span class="n">4</span>Why do all living things need energy?</p>
+      <p class="a">All living things need energy to move, grow, reproduce and carry out other activities. Plants and animals will not be healthy if they do not have enough energy.</p></div>
+  </div>
+
+  <h3><span class="roman">VI.</span>Draw a food chain</h3>
+  <div class="chain"><span>Corn</span><i>→</i><span>Mouse</span><i>→</i><span>Snake</span><i>→</i><span>Owl</span></div>
+</section>
+
+<!-- ───────── Mid-term ───────── -->
+<section class="chapter" id="midterm">
+  <h2><small>Revision</small>Mid-term Revision</h2>
+
+  <h3><span class="roman">I.</span>Answer the following</h3>
+  <div class="qa">
+    <div><p class="q"><span class="n">1</span>Which type of energy does each object transfer?</p>
+      <div class="table-box"><table>
+        <tr><th>Object</th><th>Energy in</th><th>Energy out</th></tr>
+        <tr><td>Cooker</td><td>electrical</td><td>heat</td></tr>
+        <tr><td>Television</td><td>electrical</td><td>light, heat and sound</td></tr>
+        <tr><td>Mixer</td><td>electrical</td><td>movement and sound</td></tr>
+        <tr><td>Fan</td><td>electrical</td><td>movement and sound</td></tr>
+      </table></div></div>
+    <div><p class="q"><span class="n">2</span>Write the food chain in the correct order.</p>
+      <div class="a">
+        <p style="margin:0 0 4px">a. Plant, Bird, Caterpillar</p>
+        <div class="chain"><span>Plant</span><i>→</i><span>Caterpillar</span><i>→</i><span>Bird</span></div>
+        <p style="margin:12px 0 4px">b. Lizard, Corn, Cat, Locust</p>
+        <div class="chain"><span>Corn</span><i>→</i><span>Locust</span><i>→</i><span>Lizard</span><i>→</i><span>Cat</span></div>
+      </div></div>
+  </div>
+
+  <h3><span class="roman">II.</span>Fill in the blanks</h3>
+  <ol>
+    <li>Sound and movement energy is transferred from a <span class="blank">drum</span>.</li>
+    <li><span class="blank">Heat energy</span> is transferred when an object cools down.</li>
+    <li>Energy is never used up or destroyed. Sometimes it just <span class="blank">cannot be seen</span>.</li>
+    <li>When you lower your arm, the muscle at the front of the upper arm <span class="blank">relaxes</span> and the muscle at the back of the upper arm <span class="blank">contracts</span>.
+      <p class="fix">The notebook says "lower arm contracts". Both muscles are in the upper arm: one relaxes and the other contracts.</p></li>
+  </ol>
+</section>
+
+<!-- ───────── Revision 2 ───────── -->
+<section class="chapter" id="revision2">
+  <h2><small>Revision</small>Revision 2</h2>
+
+  <h3><span class="roman">I.</span>Answer the following</h3>
+  <div class="qa">
+    <div><p class="q"><span class="n">1</span>What do you mean by producers and consumers?</p>
+      <ul class="a"><li><b>Producers</b>: living things that make their own food. Example: plants.</li>
+      <li><b>Consumers</b>: living things that eat (consume) the food made by plants, or eat other animals. Example: rabbit.</li></ul></div>
+    <div><p class="q"><span class="n">2</span>What are herbivores, carnivores and omnivores?</p>
+      <ul class="a"><li><b>Herbivores</b>: animals that eat only plants. Example: rabbit, deer.</li>
+      <li><b>Carnivores</b>: animals that eat the flesh of other animals. Example: tiger, lion.</li>
+      <li><b>Omnivores</b>: animals that eat both plants and animals. Example: dog, bear.</li></ul></div>
+    <div><p class="q"><span class="n">3</span>What do you mean by predator and prey?</p>
+      <ul class="a"><li><b>Predator</b>: an animal that hunts, kills and eats other animals. Example: lion.</li>
+      <li><b>Prey</b>: an animal that is hunted and eaten by a predator. Example: deer.</li></ul>
+      <p class="fix">The notebook got "predator" backwards; it described prey. Learn the answer above.</p></div>
+    <div><p class="q"><span class="n">4</span>What do you mean by vertebrates, invertebrates and exoskeleton?</p>
+      <ul class="a"><li><b>Vertebrates</b>: animals with a skeleton inside their bodies. Example: lion, tiger.</li>
+      <li><b>Invertebrates</b>: animals without a skeleton inside their bodies. Example: earthworm, jellyfish.</li>
+      <li><b>Exoskeleton</b>: some animals have a hard skeleton on the outside of their body. Example: beetle, bee.</li></ul>
+      <p class="fix">The question was copied as "predator", and invertebrates was written as "with skeleton". It should be "without".</p></div>
+    <div><p class="q"><span class="n">5</span>Draw the particle arrangement of solids, liquids and gases.</p>
+      <div class="particles">
+        <figure>
+          <svg viewBox="0 0 120 100" role="img" aria-label="Solid: particles packed tightly in neat rows">
+            <g>
+              <circle cx="18" cy="82" r="8"/><circle cx="36" cy="82" r="8"/><circle cx="54" cy="82" r="8"/><circle cx="72" cy="82" r="8"/><circle cx="90" cy="82" r="8"/><circle cx="108" cy="82" r="8"/>
+              <circle cx="18" cy="64" r="8"/><circle cx="36" cy="64" r="8"/><circle cx="54" cy="64" r="8"/><circle cx="72" cy="64" r="8"/><circle cx="90" cy="64" r="8"/><circle cx="108" cy="64" r="8"/>
+              <circle cx="18" cy="46" r="8"/><circle cx="36" cy="46" r="8"/><circle cx="54" cy="46" r="8"/><circle cx="72" cy="46" r="8"/><circle cx="90" cy="46" r="8"/><circle cx="108" cy="46" r="8"/>
+              <circle cx="18" cy="28" r="8"/><circle cx="36" cy="28" r="8"/><circle cx="54" cy="28" r="8"/><circle cx="72" cy="28" r="8"/><circle cx="90" cy="28" r="8"/><circle cx="108" cy="28" r="8"/>
+            </g>
+          </svg>
+          <figcaption><b>Solid</b>tightly packed, in rows</figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 120 100" role="img" aria-label="Liquid: particles close together but jumbled">
+            <g>
+              <circle cx="14" cy="84" r="8"/><circle cx="33" cy="80" r="8"/><circle cx="52" cy="86" r="8"/><circle cx="72" cy="81" r="8"/><circle cx="92" cy="85" r="8"/><circle cx="108" cy="78" r="8"/>
+              <circle cx="22" cy="64" r="8"/><circle cx="44" cy="62" r="8"/><circle cx="64" cy="64" r="8"/><circle cx="84" cy="62" r="8"/><circle cx="104" cy="58" r="8"/>
+              <circle cx="14" cy="46" r="8"/><circle cx="36" cy="44" r="8"/><circle cx="58" cy="46" r="8"/><circle cx="78" cy="42" r="8"/>
+            </g>
+          </svg>
+          <figcaption><b>Liquid</b>close but loose, can slide past</figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 120 100" role="img" aria-label="Gas: particles far apart">
+            <g>
+              <circle cx="20" cy="18" r="8"/><circle cx="96" cy="26" r="8"/><circle cx="58" cy="48" r="8"/>
+              <circle cx="16" cy="80" r="8"/><circle cx="100" cy="82" r="8"/>
+            </g>
+          </svg>
+          <figcaption><b>Gas</b>far apart, move everywhere</figcaption>
+        </figure>
+      </div></div>
+    <div><p class="q"><span class="n">6</span>Write the properties of solids, liquids and gases.</p>
+      <ul class="a"><li><b>Solid</b>: particles are tightly packed together. A solid keeps its own shape; it does not take the shape of its container.</li>
+      <li><b>Liquid</b>: particles are loosely packed and can move around. A liquid changes shape and takes the shape of its container.</li>
+      <li><b>Gas</b>: particles are far apart and move freely in all directions. A gas spreads out to fill the whole container.</li></ul></div>
+  </div>
+</section>
+</div>
+</body>
+</html>
