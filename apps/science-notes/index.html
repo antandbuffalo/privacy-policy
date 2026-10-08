@@ -73,10 +73,17 @@ th { font: 600 .8rem var(--body); letter-spacing: .06em; text-transform: upperca
 .particles figcaption { font-size: .9rem; color: var(--muted); }
 .particles figcaption b { display: block; color: var(--ink); font-family: var(--display); font-size: 1.05rem; }
 @media (max-width: 420px) { .particles { grid-template-columns: 1fr; } .particles svg { max-width: 200px; } }
+/* Quiz mode: answers hidden for practice */
+.toggle { position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 10; font: 700 1rem var(--display); color: var(--paper); background: var(--accent); border: 0; border-radius: 999px; padding: 10px 20px; cursor: pointer; box-shadow: 0 4px 14px rgb(0 0 0 / .18); }
+.toggle:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.quiz .blank { color: transparent; border-bottom-color: var(--accent); user-select: none; }
+.quiz .a, .quiz .chain, .quiz .particles, .quiz td:not(:first-child) { filter: blur(6px); user-select: none; }
+.quiz .fix { display: none; }
+.wrap { padding-bottom: 96px; }
 @media print {
   :root { --paper: #fff; --ink: #000; --muted: #444; --accent: #1a4a9e; --accent-soft: #eef2fa; }
   body { font-size: 12pt; }
-  nav { display: none; }
+  nav, .toggle { display: none; }
   section.chapter { break-before: page; margin-top: 0; }
   section.chapter:first-of-type { break-before: auto; }
   .qa > div, table, .particles, .fix { break-inside: avoid; }
@@ -93,6 +100,8 @@ html { scroll-behavior: smooth; }
   <p class="sub">Clean copy of the class notebook: Living Things, Energy, and two revision sets.</p>
   <div class="legend"><span>Blue underlined words = the answer to fill in</span><span><b>Red boxes</b> = the notebook answer was wrong, learn this one instead</span></div>
 </header>
+
+<button type="button" class="toggle" id="toggle-answers" aria-pressed="false">Hide answers</button>
 
 <nav aria-label="Chapters">
   <a href="#living">Living Things</a>
@@ -231,7 +240,7 @@ html { scroll-behavior: smooth; }
         <tr><td>Fan</td><td>electrical</td><td>movement and sound</td></tr>
       </table></div></div>
     <div><p class="q"><span class="n">2</span>Write the food chain in the correct order.</p>
-      <div class="a">
+      <div>
         <p style="margin:0 0 4px">a. Plant, Bird, Caterpillar</p>
         <div class="chain"><span>Plant</span><i>→</i><span>Caterpillar</span><i>→</i><span>Bird</span></div>
         <p style="margin:12px 0 4px">b. Lizard, Corn, Cat, Locust</p>
@@ -311,5 +320,16 @@ html { scroll-behavior: smooth; }
   </div>
 </section>
 </div>
+<script>
+(function () {
+  var btn = document.getElementById("toggle-answers");
+  function set(hidden) {
+    document.body.classList.toggle("quiz", hidden);
+    btn.textContent = hidden ? "Show answers" : "Hide answers";
+    btn.setAttribute("aria-pressed", String(hidden));
+  }
+  btn.addEventListener("click", function () { set(!document.body.classList.contains("quiz")); });
+})();
+</script>
 </body>
 </html>
